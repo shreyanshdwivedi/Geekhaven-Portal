@@ -76,7 +76,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="details.php?category=events">
+                <a href="events.php">
                     <div class="panel-footer">
                         <span class="pull-left">View Details</span>
                         <span class="pull-right">
