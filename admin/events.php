@@ -1,4 +1,5 @@
 <?php
+    ob_start();
     include "base.php";
     include "navbarheader.php";
     include "navtop.php";
@@ -10,7 +11,8 @@
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", "root", "");
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $query = $conn->prepare("SELECT * FROM users");
+    $query = $conn->prepare("SELECT * FROM events");
+    $query->execute();
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -33,18 +35,18 @@
                                     <h4 class="modal-title">Add Event</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="POST" action="includes/addUser.php" enctype="multipart/form-data">
+                                    <form method="POST" action="addEvent.php" enctype="multipart/form-data">
                                         <div class="form-group">
-                                            <label for="first_name">Name:</label>
-                                            <input type="text" class="form-control" id="first_name" name="first_name">
+                                            <label for="name">Name:</label>
+                                            <input type="text" class="form-control" id="name" name="name">
                                         </div>
                                         <div class="form-group">
-                                            <label for="last_name">Start Date:</label>
-                                            <input type="date" class="form-control" id="last_name" name="last_name">
+                                            <label for="startDate">Start Date:</label>
+                                            <input type="date" class="form-control" id="startDate" name="startDate">
                                         </div>
                                         <div class="form-group">
-                                            <label for="last_name">End Date:</label>
-                                            <input type="date" class="form-control" id="last_name" name="last_name">
+                                            <label for="endDate">End Date:</label>
+                                            <input type="date" class="form-control" id="endDate" name="endDate">
                                         </div>
                                         <div class="form-group">
                                             <label for="conductedBy">Conducted By:</label>
@@ -64,7 +66,7 @@
                                             <label for="permission">Permission Letter:</label>
                                             <input type="file" id="permission" name="permission">
                                         </div>
-                                        <button type="submit" class="btn btn-default">Submit</button>
+                                        <button type="submit" class="btn btn-default" name="submit">Submit</button>
                                     </form>
                                 </div>
                             </div>
@@ -91,22 +93,38 @@
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>Image</th>
                                         <th>Name</th>
-                                        <th>Roll Num</th>
-                                        <th>Position</th>
-                                        <th>Contact</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Conducted By</th>
+                                        <th>Status</th>
+                                        <th>Edit</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <?php
                                     foreach($result as $row){
                                         echo('<tr>
-                                            <td><img src="'.$row["image"].'"></td>
-                                            <td>'.$row["username"].'</td>
-                                            <td>'.$row["rollNum"].'</td>
-                                            <td>'.$row["contact"].'</td>
-                                            <td>'.$row["position"].'</td>
+                                            <td>'.$row["eventName"].'</td>
+                                            <td>'.$row["startDate"].'</td>
+                                            <td>'.$row["endDate"].'</td>
+                                            <td>'.$row["conductedBy"].'</td>
+                                            <td>');
+                                            if($row["eventStatus"] == "To Be Conducted"){
+                                                echo('<span class="label label-warning">To Be Conducted</span>');
+                                            }else if($row["eventStatus"] == "Conducted") {
+                                                echo('<span class="label label-success">Conducted</span>');
+                                            }else if($row["eventStatus"] == "Cancelled") {
+                                                echo('<span class="label label-danger">Cancelled</span>');
+                                            }
+                                        echo('</td>
+                                        <td>
+                                        <a href="editEvent.php?id='.$row["id"].'">
+                                            <button type="button" class="btn btn-primary editEvent" data-toggle="modal" data-target="#myModal'.$row["id"].'">
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                            </button>
+                                        </a>
+                                        </td>
                                         </tr>');
                                     }
                                 ?>
@@ -133,19 +151,18 @@
     <script src="../static/vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="../static/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
     <script src="../static/vendor/datatables-responsive/dataTables.responsive.js"></script>
-
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
-    </script>
-
     <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="../static/vendor/metisMenu/metisMenu.min.js"></script>
     <script src="../static/dist/js/sb-admin-2.js"></script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+        $(document).ready(function() {
+            $('#dataTables-example').DataTable({
+                responsive: true
+            });
+        });
+    </script>
 
 </body>
 

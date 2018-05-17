@@ -2,11 +2,14 @@
 
     if(isset($_POST['submit']))
     {      
-        $target_dir = "../../images/users/";
+        $target_dir = "../images/users/";
         $target_file = $target_dir . basename($_FILES["image"]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
         $filename = basename( $_FILES['image']['name']);
+        $path_parts = pathinfo($_FILES["image"]["name"]);
+        $image_path = $path_parts['filename'].'_'.date("Y-m-d_h:i:sa").'.'.$path_parts['extension'];
+        $target_file = $target_dir.$image_path;
 
         $check = getimagesize($_FILES["image"]["tmp_name"]);
         if($check !== false) {
@@ -54,5 +57,5 @@
         $conn->exec($query);
     }
 
-    header("Location: ../users.php");
+    header("Location: users.php");
 ?>

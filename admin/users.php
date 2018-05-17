@@ -40,7 +40,7 @@
                                     <h4 class="modal-title">Add User</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="POST" action="includes/addUser.php" enctype="multipart/form-data">
+                                    <form method="POST" action="addUser.php" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label for="name">Name:</label>
                                             <input type="text" class="form-control" id="name" name="name">
@@ -148,28 +148,52 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        <h4 class="modal-title">Edit Details</h4>
+                                                        <h4 class="modal-title">Edit User</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form method="POST" action="">
+                                                        <form method="POST" action="addUser.php" enctype="multipart/form-data">
                                                             <div class="form-group">
-                                                                <label for="base_price">Base Price:</label>
-                                                                <input type="number" class="form-control" id="base_price" name="base_price">
+                                                                <label for="name">Name:</label>
+                                                                <input type="text" class="form-control" id="name" name="name">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="discount">Discount(%):</label>
-                                                                <input type="number" class="form-control" id="discount" name="discount">
+                                                                <label for="rollNum">Roll Number:</label>
+                                                                <input type="text" class="form-control" id="rollNum" name="rollNum">
                                                             </div>
-                                                            <div class="checkbox">
-                                                                <label>
-                                                                    <input type="checkbox" name="disabled" checked>Not Available
-                                                                </label>
+                                                            <div class="form-group">
+                                                                <label for="position">Position:</label>
+                                                                <select class="dropdown" id="position" name="position">
+                                                                    <option selected="selected">------</option>
+                                                                    <option value="overall">Overall Co-Ordinator</option>
+                                                                    <option value="coordinator">Co-Ordinator</option>
+                                                                    <option value="member">Member</option>
+                                                                </select>
                                                             </div>
-                                                            <button type="submit" class="btn btn-default">Submit</button>
+                                                            <div class="form-group">
+                                                                <label for="contact">Contact Number:</label>
+                                                                <input type="number" class="form-control" id="contact" name="contact">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="wing">Wing:</label>
+                                                                <select class="dropdown" id="wing" name="wing">
+                                                                    <option selected="selected">------</option>
+                                                                    <option value="Overall">Overall</option>
+                                                                    <option value="Web Development">Web Development</option>
+                                                                    <option value="App Development">App Development</option>
+                                                                    <option value="Software Development">Software Development</option>
+                                                                    <option value="FOSS">FOSS</option>
+                                                                    <option value="Cyber Security">Cyber Security</option>
+                                                                    <option value="Competitive Coding">Competitive Coding</option>
+                                                                    <option value="Blockchain">Blockchain</option>
+                                                                    <option value="Artificial Intelligence">Artificial Intelligence</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="image">Image:</label>
+                                                                <input type="file" id="image" name="image">
+                                                            </div>
+                                                            <button type="submit" class="btn btn-default" name="submit">Submit</button>
                                                         </form>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
     
